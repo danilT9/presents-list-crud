@@ -1,0 +1,43 @@
+.list {
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+  list-style: none;
+  display: flex;
+}
+
+.list li {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  display: flex;
+  box-shadow: 5px 5px 30px 5px;
+}
+
+.list img {
+  object-fit: cover;
+  width: 300px;
+  height: 300px;
+}
+
+.delBtn {
+  color: #000;
+  background: none;
+  border: 1px solid #000;
+  border-radius: 17px;
+  width: 100px;
+  height: 40px;
+  font-size: 13px;
+}
+
+.delBtn:hover {
+  background-color: #ebebebe6;
+}
+
+.delBtn:active {
+  background-color: #d7d7d7cc;
+}
+/*# sourceMappingURL=request-learn.61d3354a.css.map */

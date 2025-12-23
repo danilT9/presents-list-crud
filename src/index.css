@@ -1,0 +1,35 @@
+.list {
+    list-style: none;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 50px;
+    
+} .list li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 5px 5px 30px 5px;
+    padding: 20px;
+} .list img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.delBtn {
+    width: 100px;
+    height: 40px;
+    background: none;
+    color: black;
+    font-size: 13px;
+    border: 1px solid black;
+    border-radius: 17px;
+} .delBtn:hover {
+    background-color: rgba(235, 235, 235, 0.9);
+} .delBtn:active {
+    background-color: rgba(215, 215, 215, 0.8);
+}
