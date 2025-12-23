@@ -736,16 +736,16 @@ addBtnForm.addEventListener("form", async (e)=>{
     const photoValue = photoInput.value;
     const titleValue = titleInput.value;
     const descriptionValue = descriptionInput.value;
-    const priceValue = priceInput.value;
+    const priceValue = Number(priceInput.value);
     if (photoValue.length === 0 || titleValue.length === 0 || descriptionValue.length === 0 || priceValue.length === 0) console.log("Error with data");
-    const id = String(Math.random() * 10000);
+    const id = "22";
     const data = {
         photo: photoValue,
         title: titleValue,
         description: descriptionValue,
-        price: priceValue,
-        id: id
+        price: priceValue
     };
+    console.log(data);
     await (0, _addPresentJs.addPresent)(data);
     await (0, _getPresentsApiJs.getPresentsApi)();
 });
