@@ -715,15 +715,49 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 
 },{}],"a0t4e":[function(require,module,exports,__globalThis) {
 var _getPresentsApiJs = require("./api/getPresentsApi.js");
+var _deletePresentJs = require("./js/deletePresent.js");
+var _addPresentJs = require("./js/addPresent.js");
 (0, _getPresentsApiJs.getPresentsApi)();
+const presentsList = document.querySelector(".list");
+const addBtn = document.querySelector(".addBtn");
+const addForm = document.querySelector(".addFormBackground");
+const addBtnForm = document.querySelector(".addBtnForm");
+const photoInput = document.querySelector(".photoInput");
+const titleInput = document.querySelector(".titleInput");
+const descriptionInput = document.querySelector(".descriptionInput");
+const priceInput = document.querySelector(".priceInput");
+addBtn.addEventListener("click", (e)=>{
+    e.preventDefault();
+    addForm.classList.toggle("addFormBackground");
+    addForm.classList.add("addFormBackgroundShow");
+});
+addBtnForm.addEventListener("form", async (e)=>{
+    e.preventDefault();
+    const photoValue = photoInput.value;
+    const titleValue = titleInput.value;
+    const descriptionValue = descriptionInput.value;
+    const priceValue = priceInput.value;
+    if (photoValue.length === 0 || titleValue.length === 0 || descriptionValue.length === 0 || priceValue.length === 0) console.log("Error with data");
+    const id = String(Math.random() * 10000);
+    const data = {
+        photo: photoValue,
+        title: titleValue,
+        description: descriptionValue,
+        price: priceValue,
+        id: id
+    };
+    await (0, _addPresentJs.addPresent)(data);
+    await (0, _getPresentsApiJs.getPresentsApi)();
+});
+presentsList.addEventListener("click", (0, _deletePresentJs.deletePresent));
 
-},{"./api/getPresentsApi.js":"dCLOr"}],"dCLOr":[function(require,module,exports,__globalThis) {
+},{"./api/getPresentsApi.js":"dCLOr","./js/deletePresent.js":"kxlp6","./js/addPresent.js":"hASHN"}],"dCLOr":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getPresentsApi", ()=>getPresentsApi);
 var _makePresentsList = require("../js/makePresentsList");
-const getPresentsApi = ()=>{
-    fetch("https://694ac93526e8707720669208.mockapi.io/presents").then((res)=>res.json()).then((presents)=>(0, _makePresentsList.makePresentsList)(presents));
+const getPresentsApi = async ()=>{
+    return await fetch("https://694ac93526e8707720669208.mockapi.io/presents").then((res)=>res.json()).then((presents)=>(0, _makePresentsList.makePresentsList)(presents));
 };
 
 },{"../js/makePresentsList":"9DFCY","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"9DFCY":[function(require,module,exports,__globalThis) {
@@ -738,7 +772,7 @@ const makePresentsList = (data)=>{
             <h2>${pr.title}</h2>
             <p>${pr.description}</p>
             <p>Price: ${pr.price}</p>
-            <button class="delBtn">Delete</button>
+            <button class="delBtn" data-id="${pr.id}">Delete</button>
         </li>
         `).join('');
     return list.innerHTML = newPresents;
@@ -774,6 +808,60 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["5j6Kf","a0t4e"], "a0t4e", "parcelRequire545f", {})
+},{}],"kxlp6":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "deletePresent", ()=>deletePresent);
+var _getPresentsApiJs = require("../api/getPresentsApi.js");
+var _deletePresentsApiJs = require("../api/deletePresentsApi.js");
+const deletePresent = async (e)=>{
+    e.preventDefault();
+    if (e.target.nodeName === "BUTTON") {
+        const id = e.target.dataset.id;
+        await (0, _deletePresentsApiJs.deletePresentApi)(id);
+        await (0, _getPresentsApiJs.getPresentsApi)();
+    }
+};
+
+},{"../api/getPresentsApi.js":"dCLOr","../api/deletePresentsApi.js":"aHlvI","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"aHlvI":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "deletePresentApi", ()=>deletePresentApi);
+const deletePresentApi = async (id)=>{
+    return await fetch(`https://694ac93526e8707720669208.mockapi.io/presents/${id}`, {
+        method: "DELETE"
+    });
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"hASHN":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "addPresent", ()=>addPresent);
+var _getPresentsApiJs = require("../api/getPresentsApi.js");
+var _addPresentsApiJs = require("../api/addPresentsApi.js");
+const addPresent = async (e)=>{
+    e.preventDefault();
+    if (e.target.nodeName === "BUTTON") {
+        const id = e.target.dataset.id;
+        await (0, _addPresentsApiJs.addPresentApi)(id);
+        await (0, _getPresentsApiJs.getPresentsApi)();
+    }
+};
+
+},{"../api/getPresentsApi.js":"dCLOr","../api/addPresentsApi.js":"jlN7R","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"jlN7R":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "addPresentApi", ()=>addPresentApi);
+const addPresentApi = async (present)=>{
+    return await fetch(`https://694ac93526e8707720669208.mockapi.io/presents`, {
+        method: "POST",
+        body: JSON.stringify(present),
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8"
+        }
+    }).then((res)=>res.json());
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["5j6Kf","a0t4e"], "a0t4e", "parcelRequire545f", {})
 
 //# sourceMappingURL=request-learn.31b563d9.js.map
